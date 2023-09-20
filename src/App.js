@@ -7,7 +7,7 @@ const App = () => {
   const [data, setData] = useState({});
 
   const searchFunc = (area) => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${area}&units=imperial&appid=${info.key}`;
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${area}&units=imperial&appid=${process.env.REACT_APP_API_KEY}`;
 
     axios.get(url).then((response) => {
       setData(response.data);
@@ -23,7 +23,7 @@ const App = () => {
     searchFunc(event.target.area.value);
   };
   return (
-    <div className="app">
+    <div className={`app ${data.main["temp"] > 60 ? "sunny" : "cold"}`}>
       <div className="search">
         <form onSubmit={submitHandler}>
           <input type="text" name="area" placeholder="Search City" />
